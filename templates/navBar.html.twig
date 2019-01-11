@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ea3d3d;">
+    <a class="navbar-brand" href="{{ path('home') }}">
+        <img src="/images/youtube_logo.png" width="45" height="30" class="d-inline-block align-top" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mx-auto">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <li class="nav-item ml-3">
+                <a class="nav-link text-uppercase font-weight-bold text-expanded"
+                   href="{{ path('home') }}">profile</a>
+            </li>
+            <li class="nav-item ml-3">
+                <a class="nav-link text-uppercase font-weight-bold text-expanded"
+                   href="{{ path('logout') }}">Deconnexion</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav" style="text-align: right;">
+            <li>
+                <a class="nav-link text-uppercase font-weight-bold text-expanded"
+                   href="#">{{ app.user.firstname }}</a>
+            </li>
+            {% else %}
+                <li class="nav-item px-lg-3">
+                    <a class="nav-link text-uppercase font-weight-bold text-expanded"
+                       href="{{ path('login') }}">Connexion</a>
+                </li>
+                <li class="nav-item px-lg-3">
+                    <a class="nav-link text-uppercase font-weight-bold text-expanded" href="{{ path('register') }}">Inscription</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="container-fluid col-6 text-center mt-3 alert alert-{{ label }}" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
