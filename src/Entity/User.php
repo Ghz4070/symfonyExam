@@ -50,7 +50,7 @@ class User implements UserInterface
     private $roles = [];
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $birthday;
 
