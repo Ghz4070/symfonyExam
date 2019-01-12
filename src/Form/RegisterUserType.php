@@ -20,7 +20,9 @@ class RegisterUserType extends AbstractType
             ->add('firstname')
             ->add('lastname')
             ->add('email', EmailType::class)
-            ->add('birthday', BirthdayType::class)
+            ->add('birthday', BirthdayType::class, array(
+                'widget' => 'single_text',
+            ))
             ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'first_options' => array('label' => 'Password'),
