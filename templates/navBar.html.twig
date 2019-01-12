@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ea3d3d;">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ee6e70;">
     <a class="navbar-brand" href="{{ path('home') }}">
         <img src="/images/youtube_logo.png" width="45" height="30" class="d-inline-block align-top" alt="">
     </a>
@@ -6,20 +6,18 @@
             aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav mx-auto">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <li class="nav-item ml-3">
+            <li class="nav-item px-lg-3">
                 <a class="nav-link text-uppercase font-weight-bold text-expanded"
                    href="{{ path('profile') }}">profile</a>
             </li>
-            <li class="nav-item ml-3">
+            <li class="nav-item px-lg-3">
                 <a class="nav-link text-uppercase font-weight-bold text-expanded"
                    href="{{ path('logout') }}">Deconnexion</a>
             </li>
-        </ul>
-        <ul class="navbar-nav" style="text-align: right;">
-            <li>
+            <li class="nav-item px-lg-3">
                 <a class="nav-link text-uppercase font-weight-bold text-expanded"
                    href="#">{{ app.user.firstname }}</a>
             </li>
