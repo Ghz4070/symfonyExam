@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}cree ton post{% endblock %}
+
+{% block body %}
+    <div class="container-fluid col-6 text-center mt-4">
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.content, {'attr': {'class': 'form-control', 'rows' : '2'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.createdAt, {'attr': {'class': 'form-control', 'rows' : '2'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.published, {'attr': {'class': 'ml-2'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.url, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.save, {'attr': {'class': 'form-control btn btn-warning'}}) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

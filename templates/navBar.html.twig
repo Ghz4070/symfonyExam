@@ -10,17 +10,21 @@
         <ul class="navbar-nav mx-auto">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li class="nav-item px-lg-3">
-                <a class="nav-link text-uppercase font-weight-bold text-expanded"
-                   href="{{ path('profile') }}">profile</a>
-            </li>
-            <li class="nav-item px-lg-3">
-                <a class="nav-link text-uppercase font-weight-bold text-expanded"
-                   href="{{ path('logout') }}">Deconnexion</a>
-            </li>
-            <li class="nav-item px-lg-3">
-                <a class="nav-link text-uppercase font-weight-bold text-expanded"
-                   href="#">{{ app.user.firstname }}</a>
-            </li>
+                    <a class="nav-link text-uppercase font-weight-bold text-expanded"
+                       href="{{ path('profile') }}">profile</a>
+                </li>
+                <li class="nav-item px-lg-3">
+                    <a class="nav-link text-uppercase font-weight-bold text-expanded"
+                       href="{{ path('video') }}">video</a>
+                </li>
+                <li class="nav-item px-lg-3">
+                    <a class="nav-link text-uppercase font-weight-bold text-expanded"
+                       href="#">{{ app.user.firstname }}</a>
+                </li>
+                <li class="nav-item px-lg-3">
+                    <a class="nav-link text-uppercase font-weight-bold text-expanded"
+                       href="{{ path('logout') }}">deconnexion</a>
+                </li>
             {% else %}
                 <li class="nav-item px-lg-3">
                     <a class="nav-link text-uppercase font-weight-bold text-expanded"

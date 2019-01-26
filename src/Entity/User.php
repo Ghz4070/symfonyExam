@@ -54,6 +54,11 @@ class User implements UserInterface
      */
     private $birthday;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Video", inversedBy="user")
+     */
+    private $videos;
+
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
@@ -149,5 +154,17 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getVideos(): ?Video
+    {
+        return $this->videos;
+    }
+
+    public function setVideos(?Video $videos): self
+    {
+        $this->videos = $videos;
+
+        return $this;
     }
 }

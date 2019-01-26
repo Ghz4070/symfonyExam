@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\LoginUserType;
 use App\Form\RegisterUserType;
+use App\Repository\UserRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +18,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/register", name="register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, LoggerInterface $logger)
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, LoggerInterface $logger)
     {
         $user = new User();
         $form = $this->createForm(RegisterUserType::class, $user);

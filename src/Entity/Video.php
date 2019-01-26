@@ -29,9 +29,9 @@ class Video
     private $createdAt;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default": 0})
      */
-    private $published;
+    private $published = false;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -48,9 +48,15 @@ class Video
      */
     private $category;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="videos")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
+        $this->user = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -87,11 +93,11 @@ class Video
         return $this->published;
     }
 
-    public function setPublished(bool $published): self
+    public function setPublished(bool $published): ?bool
     {
         $this->published = $published;
 
-        return $this;
+        return $this->published;
     }
 
     public function getUrl(): ?string
@@ -139,6 +145,44 @@ class Video
     {
         if ($this->category->contains($category)) {
             $this->category->removeElement($category);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUser(): Collection
+    {
+        return $this->user;
+    }
+
+    public function setUser(Collection $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
+            $user->setVideos($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->user->contains($user)) {
+            $this->user->removeElement($user);
+            // set the owning side to null (unless already changed)
+            if ($user->getVideos() === $this) {
+                $user->setVideos(null);
+            }
         }
 
         return $this;

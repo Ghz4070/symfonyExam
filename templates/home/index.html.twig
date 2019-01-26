@@ -1,7 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
-
+{% block title %}All Video{% endblock %}
 {% block body %}
-
+    <div class="container-fluid col-6 text-center mt-4">
+        <h1 class="mt-3" style="color: #8959A8;">All Videos</h1>
+        {% for user in users %}
+            <div class="form-group mt-2">
+                <h3>{{ user.firstname }}</h3>
+            </div>
+            {% for video in user.videos %}
+                <div class="form-group">
+                    <a href="{{ path('detail_video', { 'id': video.id }) }}">{{ video.name }}</a>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a style="color: #AA3333;" href="{{ path('remove_video', {'id': video.id}) }}">Supprimer</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
 {% endblock %}
