@@ -34,7 +34,6 @@ class VideoController extends AbstractController
         $videoPublished = $videoRepository->findBy(['published' => true]);
         $videoNotPublished = $videoRepository->findBy(['published' => false]);
 
-
         return $this->render('video/index.html.twig', array(
             'videos' => $videos,
             'videoPublished' => $videoPublished,

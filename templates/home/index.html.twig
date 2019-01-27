@@ -10,7 +10,7 @@
             </div>
             {% for video in user.videos %}
                 <div class="form-group">
-                    <a href="{{ path('detail_video', { 'id': video.id }) }}">{{ video.name }}</a>
+                    <a href="{{ path('detail_video', { 'id': video.id }) }}">{{ video.title }}</a>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <a style="color: #AA3333;" href="{{ path('remove_video', {'id': video.id}) }}">Supprimer</a>
                     {% endif %}

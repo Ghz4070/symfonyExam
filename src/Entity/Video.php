@@ -49,14 +49,13 @@ class Video
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="videos")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="videos")
      */
     private $user;
 
     public function __construct()
     {
         $this->category = new ArrayCollection();
-        $this->user = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -132,6 +131,11 @@ class Video
         return $this->category;
     }
 
+    public function setCategory(Category $category): self
+    {
+        return $this->addCategory($category);
+    }
+
     public function addCategory(Category $category): self
     {
         if (!$this->category->contains($category)) {
@@ -150,40 +154,14 @@ class Video
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getUser(): Collection
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(Collection $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
-            $user->setVideos($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->user->contains($user)) {
-            $this->user->removeElement($user);
-            // set the owning side to null (unless already changed)
-            if ($user->getVideos() === $this) {
-                $user->setVideos(null);
-            }
-        }
 
         return $this;
     }

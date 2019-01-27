@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Video;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -22,7 +24,12 @@ class VideoType extends AbstractType
             ->add('published', CheckboxType::class, array('required' => false))
             ->add('url')
             ->add('description')
-            ->add('category')
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'title',
+                'multiple' => true,
+                'expanded'  => true,
+            ])
             ->add('save', SubmitType::class);
     }
 
