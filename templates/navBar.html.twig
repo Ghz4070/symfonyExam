@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ee6e70;">
+<nav class="navbar navbar-expand-lg navbar-light fixed" style="background-color: #ee6e70;">
     <a class="navbar-brand" href="{{ path('home') }}">
         <img src="/images/youtube_logo.png" width="45" height="30" class="d-inline-block align-top" alt="">
     </a>
@@ -16,6 +16,10 @@
                 <li class="nav-item">
                     <a class="nav-link text-uppercase font-weight-bold text-expanded"
                        href="{{ path('video') }}">video</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-uppercase font-weight-bold text-expanded"
+                       href="{{ path('liste_video',{'id': app.user.id} ) }}">ma liste de video</a>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item">

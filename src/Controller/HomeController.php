@@ -14,9 +14,6 @@ class HomeController extends AbstractController
      */
     public function index(UserRepository $userRepository, VideoRepository $videoRepository)
     {
-        $videoPublished = $videoRepository->findBy(['published' => true]);
-        $videoNotPublished = $videoRepository->findBy(['published' => false]);
-
         $users = $userRepository->findAll();
         $videos = $videoRepository->findAll();
 
@@ -24,8 +21,6 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
             'users' => $users,
             'videos' => $videos,
-            'videoPublished' => $videoPublished,
-            'videoNotPublished' => $videoNotPublished,
         ]);
     }
 }

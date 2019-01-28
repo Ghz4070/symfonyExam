@@ -9,7 +9,7 @@
                 <h1 style="color: #ee6e70;">{{ user.firstname }}</h1>
             </div>
             {% for video in user.videos %}
-                {% if videoNotPublished == 1 %}
+                {% if video.published == 1 %}
                     <div class="form-group mt-3">
                         <iframe width="560" height="315" src="{{ video.url }}" frameborder="0"
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"

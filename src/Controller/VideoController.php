@@ -6,6 +6,7 @@ use App\Entity\Video;
 use App\Form\VideoType;
 use App\Repository\VideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Id;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -82,5 +83,27 @@ class VideoController extends AbstractController
         return $this->render('video/modifier.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+    /**
+     * @Route("/video/list/{id}", name="liste_video")
+     */
+    public function liste($id)
+    {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        if ($user === "anon.") {
+            $videos = $this->getDoctrine()->getRepository(Video::class)->findBy(array('user' => $id, 'published' => 1));
+        } else {
+            if ($user->getid($id) == $id) {
+                $videos = $this->getDoctrine()->getRepository(Video::class)->findBy(array('user' => $id));
+            } else {
+                $videos = $this->getDoctrine()->getRepository(Video::class)->findBy(array('user' => $id, 'published' => 1));
+            }
+        }
+
+        return $this->render('video/user_article.html.twig', [
+            'video' => $videos
+        ]);
     }
 }
