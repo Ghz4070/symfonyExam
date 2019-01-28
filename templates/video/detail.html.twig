@@ -25,5 +25,11 @@
         <div class="form-group">
             <li class="form-control">Auteur : {{ video.user.firstname }}</li>
         </div>
+        {% if app.user == video.user %}
+            <div class="form-group">
+                <a class="mr-3" style="color: #1529aa;" href="{{ path('edit_video',{'id': video.id} ) }}">Modifier</a>
+                <a style="color: #AA3333;" href="{{ path('remove_video', {'id': video.id}) }}">Supprimer</a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

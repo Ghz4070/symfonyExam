@@ -31,13 +31,8 @@ class VideoController extends AbstractController
         }
         $videos = $videoRepository->findAll();
 
-        $videoPublished = $videoRepository->findBy(['published' => true]);
-        $videoNotPublished = $videoRepository->findBy(['published' => false]);
-
         return $this->render('video/index.html.twig', array(
             'videos' => $videos,
-            'videoPublished' => $videoPublished,
-            'videoNotPublished' => $videoNotPublished,
             'form' => $form->createView(),
         ));
     }
@@ -63,5 +58,29 @@ class VideoController extends AbstractController
         $entityManager->flush();
         $this->addFlash('notice', 'Element supprimer !');
         return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @Route("/video/edit/{id}", name="edit_video")
+     */
+    public function edit(Request $request, Video $video = null)
+    {
+        if (!$video) {
+            $video = new video();
+        }
+        $form = $this->createForm(VideoType::class, $video);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($video);
+            $entityManager->flush();
+            $this->addFlash('success', 'Modification enregistrer !');
+            return $this->redirectToRoute('detail_video', ['id' => $video->getId()]);
+        }
+
+
+        return $this->render('video/modifier.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 }

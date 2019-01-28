@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Form\RegisterUserType;
 use App\Repository\UserRepository;
 use App\Repository\VideoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -15,16 +12,11 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(Request $request, UserRepository $userRepository, VideoRepository $videoRepository)
+    public function index(UserRepository $userRepository, VideoRepository $videoRepository)
     {
-        $user = new User();
-        $form = $this->createForm(RegisterUserType::class, $user);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-        }
+        $videoPublished = $videoRepository->findBy(['published' => true]);
+        $videoNotPublished = $videoRepository->findBy(['published' => false]);
+
         $users = $userRepository->findAll();
         $videos = $videoRepository->findAll();
 
@@ -32,6 +24,8 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
             'users' => $users,
             'videos' => $videos,
+            'videoPublished' => $videoPublished,
+            'videoNotPublished' => $videoNotPublished,
         ]);
     }
 }
