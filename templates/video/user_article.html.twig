@@ -11,11 +11,9 @@
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
             </div>
-            {#<div class="form-group">#}
-                {#<li class="form-control">Categorie : {{ category.videos.title }}</li>#}
-            {#</div>#}
             <div class="form-group">
                 <li class="form-control">Description : {{ videos.description|nl2br }}</li>
+                <li class="form-control">Date : {{ videos.createdAt|date }}</li>
             </div>
             <div class="form-group">
                 <a class="mr-3" style="color: #1529aa;" href="{{ path('edit_video',{'id': videos.id} ) }}">Modifier</a>
